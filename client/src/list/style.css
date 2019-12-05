@@ -1,0 +1,144 @@
+.container {
+  width: 85%; /* for mobiles with width smaller than 360 */
+  max-width: 360px; /* for web so the box isnt so big */
+	background: white;
+	--primary-color: #422924;/*2980b9   64504C  3F2B24*/
+	--highlight-color: #F19900;
+	--warning-color: #E83E00;
+	--success-color: #B3C0A4;
+}
+
+h1 {
+  background: var(--primary-color);
+  color: white;
+	margin: 0;
+	padding: 10px 20px;
+	text-transform: uppercase;
+	font-size: 24px;
+	font-weight: normal;
+}
+
+.addElementIcon {
+	cursor: pointer;
+	text-decoration: none;
+	font-style: normal;
+	float: right;
+}
+
+.addElementInput {
+  display: inline-block;
+  font-size: 18px;
+	color: var(--primary-color);
+	background-color: #f7f7f7;
+	width: 100%;
+	padding: 13px 20px 13px 20px;
+	box-sizing: border-box;
+	border: 3px solid rgba(0,0,0,0);
+	animation: fadeIn 1s;
+}
+.addElementInput:focus {
+	background: white;
+	border: 3px solid var(--primary-color);
+	outline: none;
+}
+.addElementInput:not(:placeholder-shown) {
+	border: 3px solid var(--success-color);
+}
+
+.openBox {
+	display: none;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0; 
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+.listElement {
+	color: gray;
+	font-size: 18px;
+	margin: 0;
+	padding: 0;
+	line-height: 32px;
+	display: grid;
+	justify-items: center;
+	align-items: center;
+	grid-template-columns: 1fr 100fr 1fr;
+	grid-template-areas: 'd t e';
+}
+.listElement:nth-child(2n) {
+	background: #f7f7f7;
+}
+.listElement:hover .deleteElement {
+	width: 40px;
+	opacity: 1;
+}
+.listElement:hover .textElement {
+	max-width: 280px;
+	word-break: normal;
+}
+.listElement:hover .editElement {
+	width: 40px;
+	opacity: 1;
+}
+
+.deleteElement {
+	cursor: pointer;
+	background: var(--warning-color);
+	color: white;
+	text-align: center;
+	line-height: 40px;
+	transition: 0.15s linear;
+	height:40px;
+	width: 0px;
+	opacity: 0;
+	grid-area: d;
+}
+.textElement {
+	cursor: pointer;
+	overflow-wrap: break-word;
+	transition: 0.1s ease;
+	max-width: 360px;
+	grid-area: t;
+}
+.editElement {
+	cursor: pointer;
+	background: var(--highlight-color);
+	color: white;
+	text-align: center;
+	line-height: 40px;
+	transition: 0.15s linear;
+	height: inherit;
+	max-height: 40px;
+	width: 0px;
+	opacity: 0;
+	grid-area: e;
+}
+
+.editElementInput {
+	display: inline-block;
+	font-size: 18px;
+	color: var(--primary-color);
+	width: 80%;
+	height: 70%;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.editElementInput:focus {
+	outline-color: var(--highlight-color);
+}
+
+.textStrikethrough {
+	text-decoration: line-through;
+}
+
+.icon {
+	height: inherit;
+	width: inherit;
+	color: white;
+}

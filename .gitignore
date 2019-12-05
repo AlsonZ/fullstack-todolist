@@ -1,6 +1,6 @@
 .env
 node_modules
-client/readME.md
+client/README.md
 client/build
 client/node_modules
 client/.gitignore

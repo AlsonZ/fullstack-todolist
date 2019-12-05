@@ -1,0 +1,89 @@
+
+.button-outside, .hamburger-box {
+  height: 3rem;
+  width: 3rem;
+  position: absolute;
+  left: 2rem;
+  top: 2rem;
+  background: #B3C0A4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100vh;
+  transition: 0.2s ease-in-out;
+  z-index: 10; /* to be ontop of everything else*/
+}
+
+.hamburger-box {
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+.hamburger {
+  margin-right: auto;
+  margin-left: 0.6753125rem;
+  text-decoration: none;
+  position: relative;
+}
+.hamburger, .hamburger::before, .hamburger::after {
+  width: 1.65rem;
+  height: 0.1875rem;
+  background: white;
+}
+.hamburger::before, .hamburger::after {
+  position: absolute;
+  content: '';
+  left: 0;
+}
+.hamburger::before {
+  bottom: 0.5rem;
+}
+.hamburger::after {
+  top: 0.5rem;
+}
+
+.menu {
+  width: calc(100vw - 4rem);
+}
+
+.list {
+  height: inherit;
+  width: calc(100vw - 4rem);
+  display: flex;
+  position: absolute;
+  visibility: hidden;
+}
+
+@keyframes fade-in-list {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.menu-items {
+  visibility: visible;
+  animation: fade-in-list 1s;
+}
+
+ul {
+  height: inherit;
+  width: calc(100vw - 4rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  justify-content: space-around;
+}
+
+li {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}

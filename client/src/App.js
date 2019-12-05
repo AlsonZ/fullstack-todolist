@@ -1,24 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
+import List from './list/list.js';
+import Menu from './menu/menu.js';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="lazyLoad-background">
+      <div className="mid-res-background">
+        <div className="high-res-background">
+          <div className="body">
+            <Menu/>
+            <List/>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

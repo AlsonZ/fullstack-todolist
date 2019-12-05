@@ -1,0 +1,37 @@
+.iconToggle {
+  cursor: pointer;
+  height: 2rem;
+  width: 2rem;
+  float: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.addIcon {
+	text-decoration: none;
+	font-style: normal;
+  float: right;
+  position: relative;
+}
+
+.addIcon, .addIcon::before {
+  width: 1.65rem;
+  height: 0.1875rem;
+  background: #FFFFFF;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.375);
+  transition-duration: 1s;
+}
+
+.addIcon::before {
+  content:'';
+  position: absolute;
+  left:0;
+  bottom: 0px;
+  transform: rotate(90deg);
+}
+
+.minusIcon::before {
+  transform: rotate(360deg);
+}
