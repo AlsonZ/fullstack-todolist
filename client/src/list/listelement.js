@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {ReactComponent as TrashCanIcon} from './trashCan.svg';
 import {ReactComponent as EditIcon} from './edit.svg';
 import {ReactComponent as CompleteIcon} from './complete.svg';
-import './style.css';
+import './list.css';
 
 function ListElement(props) {
 

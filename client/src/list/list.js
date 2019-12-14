@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import ListElement from './listelement';
-import './style.css';
+import './list.css';
 import './addIcon.css';
+import {UserContext} from '../entry/userContext.js';
 
 function List() {
 
@@ -10,10 +11,13 @@ function List() {
   const [box, setBox] = useState("");
   const [minusIcon, setMinusIcon] = useState("");
   const inputElement = useRef(null);
+  const [user, setUser] = useContext(UserContext);
 
-  // useEffect(() => {
-  //   checkSavedLists();
-  // }, []);
+  useEffect(() => {
+    // checkSavedLists();
+    console.log("this is list");
+    console.log(user);
+  }, []);
 
   const checkSavedLists = () => {
     // check cookies or w/e to determine if there is a previous list
@@ -48,7 +52,7 @@ function List() {
 
   return (
     <div className="container">
-      <h1>
+      <h1 className="title">
         Todo-list
         <span onClick={openBox} className="iconToggle" > 
           <span className={"addIcon" + " " + minusIcon}/>

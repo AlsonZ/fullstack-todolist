@@ -1,34 +1,37 @@
-
-.button-outside, .hamburger-box {
-  height: 3rem;
-  width: 3rem;
+.nav {
   position: absolute;
-  left: 2rem;
-  top: 2rem;
-  background: #B3C0A4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 100vh;
-  transition: 0.2s ease-in-out;
-  z-index: 10; /* to be ontop of everything else*/
+  left: 0;
+  top: 0;
+  box-shadow: 0 0 3em rgba(0,0,0,.15);
+  transform: translateX(-100%);
+  transition: transform 300ms cubic-bezier(.5, 0, .5, 1);
+  --primary-color: #422924;
+  --menu-color-transparent: rgba(215, 216, 221, 0.8);
+  --menu-color-full: rgba(215, 216, 221, 1);
 }
 
 .hamburger-box {
-  top: 0;
-  left: 0;
+  position: absolute;
+  top: 2rem;
+  right: -1rem;
+  width: 1.7rem;
+  background: #B3C0A4;
+  border-radius: 100vh;
   cursor: pointer;
+  transform: translateX(100%);
+  padding: 1.35rem 0.65rem;
 }
 .hamburger {
-  margin-right: auto;
-  margin-left: 0.6753125rem;
-  text-decoration: none;
   position: relative;
+  display: block;
 }
 .hamburger, .hamburger::before, .hamburger::after {
   width: 1.65rem;
   height: 0.1875rem;
   background: white;
+  transition-property: transform opacity background-color;
+  transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition-duration: 1s;
 }
 .hamburger::before, .hamburger::after {
   position: absolute;
@@ -41,49 +44,92 @@
 .hamburger::after {
   top: 0.5rem;
 }
-
-.menu {
-  width: calc(100vw - 4rem);
+.hamburger-box:hover .hamburger {
+  animation: slide 1.5s infinite 0.2s;
+}
+.hamburger-box:hover .hamburger::after {
+  animation: slide 1s infinite 0.5s;
+}
+.hamburger-box:hover .hamburger::before {
+  animation: slide 2s infinite;
 }
 
-.list {
-  height: inherit;
-  width: calc(100vw - 4rem);
-  display: flex;
-  position: absolute;
-  visibility: hidden;
-}
-
-@keyframes fade-in-list {
-  from {
-    opacity: 0;
+@keyframes slide {
+  0% {
+    width: 1.65rem;
   }
-  to {
-    opacity: 1;
+  50% {
+    width: 0.7rem;
   }
-}
-
-.menu-items {
-  visibility: visible;
-  animation: fade-in-list 1s;
+  100% {
+    width: 1.65rem;
+  }
 }
 
 ul {
-  height: inherit;
-  width: calc(100vw - 4rem);
   list-style: none;
   margin: 0;
   padding: 0;
+  height: 100vh;
+  background-color: var(--menu-color-transparent);
   display: flex;
-  flex-direction: row;
-  position: absolute;
-  justify-content: space-around;
+  flex-direction: column;
+  transition: 0.5s ease-in-out;
+  overflow: auto;
+}
+ul::-webkit-scrollbar-thumb {
+  background-color: grey;
+  border-radius: 100vh;
+}
+ul::-webkit-scrollbar-track {
+  background-color: lightgrey;
+}
+ul::-webkit-scrollbar {
+  width: 0.5rem;
+  background-color: red;
+}
+ul:hover {
+  background-color: var(--menu-color-full);
 }
 
 li {
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   user-select: none;
+  font-size: 1.2rem;
+  padding: 2.3rem 4.5rem 1rem 4.5rem;
+  color: var(--primary-color);
+}
+
+.links {
+  text-decoration: none;
+}
+.links:hover {
+  text-decoration: underline;
+}
+
+.nav-open {
+  transform:translateX(0);
+}
+
+.nav-open .hamburger {
+  background-color: transparent;
+  transform: rotate(180deg);
+  animation: none;
+}
+.nav-open .hamburger::before {
+  transform: translateY(8px) rotate(-45deg);
+  animation: none;
+}
+.nav-open .hamburger::after {
+  transform: translateY(-8px) rotate(45deg);
+  animation: none;
+}
+.nav-open .hamburger-box:hover .hamburger {
+  animation: none;
+}
+.nav-open .hamburger-box:hover .hamburger::before {
+  animation: none;
+}
+.nav-open .hamburger-box:hover .hamburger::after {
+  animation: none;
 }

@@ -1,39 +1,31 @@
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 import './menu.css';
 
 function Menu() {
 
-  const [menu, setMenu] = useState("");
+  const [navOpen, setNavOpen] = useState("");
   const [menuItems, setMenuItems] = useState("");
 
   const menuClick = () => {
-    if(menu == "") {
-      setMenu("menu");
+    if(navOpen == "") {
+      setNavOpen("nav-open");
       setMenuItems("menu-items");
     } else {
-      setMenu("");
+      setNavOpen("");
       setMenuItems("");
     }
   }
 
   return (
-    <div className={"button-outside" + " " + menu}>
+    <div className={"nav" + " " + navOpen}>
       <div onClick={menuClick} className="hamburger-box">
         <div className="hamburger"/>
       </div>
-      <div className={"list" + " " + menuItems}>
-        <ul>
-          <li>
-            <a href>List 1</a>
-          </li>
-          <li>
-            <a href>List 2</a>
-          </li>
-          <li>
-            <a href>List 3</a>
-          </li>
-        </ul>
-      </div>
+      <ul className="menu-list">
+        <Link to='/login' className="links"><li>Login</li></Link>
+        <Link to='/' className="links"><li>List 1</li></Link>
+      </ul>
     </div>
   );
 }
