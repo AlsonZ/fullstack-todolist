@@ -8,10 +8,9 @@ export const ListContext = createContext(
 );
 
 export const ListProvider = (props) => {
-  const [list, setList] = useState({
-  });
+  const [lists, setLists] = useState([]);
   return(
-    <ListContext.Provider value={[list, setList]}>
+    <ListContext.Provider value={[lists, setLists]}>
       {props.children}
     </ListContext.Provider>
   );

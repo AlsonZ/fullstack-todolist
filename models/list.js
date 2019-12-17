@@ -6,7 +6,7 @@ const listSchema = new mongoose.Schema({
     required: true
   },
   items: {
-    type: []
+    type: Array,
   },
   creationDate: {
     type: Date,

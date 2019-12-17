@@ -29,6 +29,7 @@ router.post('/register', checkUser, async (req, res) => {
     password: req.body.password,
   })
   try {
+    // do i even need a const here
     const newUser = await user.save();
     // console.log(user);
     console.log('new user registered: '+req.body.email);

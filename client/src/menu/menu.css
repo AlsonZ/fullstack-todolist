@@ -92,7 +92,7 @@ ul:hover {
   background-color: var(--menu-color-full);
 }
 
-li {
+.list-element {
   cursor: pointer;
   user-select: none;
   font-size: 1.2rem;
@@ -132,4 +132,46 @@ li {
 }
 .nav-open .hamburger-box:hover .hamburger::after {
   animation: none;
+}
+
+.add-new-list-input {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 13px 20px 13px 20px;
+  width: 70%;
+  font-size: 1.125rem;
+  color: var(--primary-color);
+  /* background-color: #f7f7f7; */
+  background-color: transparent;
+  border: 1px solid rgba(0,0,0,0);
+  /* border-bottom: 1px solid var(--primary-color); */
+}
+.add-new-list-input:focus {
+	/* border: 1px solid var(--primary-color); */
+	outline: none;
+}
+.add-new-list-input:focus::placeholder {
+  color: transparent;
+}
+.add-new-list-input::placeholder {
+  text-align: center;
+}
+.input-list-element {
+  padding-top: 2.3rem;
+  user-select: none;
+}
+.input-list-element::after {
+  content: "";
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  background: blue;
+  width: 50%;
+  border-bottom: 1px solid var(--primary-color);
+  transform: translateY(-100%);
+  transition: 0.2s ease-in-out;
+}
+
+.input-list-element:focus-within::after {
+  width: 65%;
 }

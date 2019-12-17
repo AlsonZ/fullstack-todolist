@@ -1,0 +1,15 @@
+.notification {
+  background: #444;
+  padding: 1rem 1rem;
+  font-size: 1.2rem;
+  position: absolute;
+  width: 200px;
+  left: 50%;
+  top: -100px;
+  transform: translate(-50%, 0%);
+  z-index: 100;
+  transition: top 0.5s ease;
+}
+.notify-user {
+  top: 1rem;
+}
