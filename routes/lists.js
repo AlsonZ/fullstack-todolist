@@ -48,6 +48,20 @@ router.post('/addNewList', isLoggedIn, async (req, res) => {
 
 router.get('/getall', isLoggedIn, async (req, res) => {
   // return list data
+  try {
+    const list = await List.find({email: req.session.userID});
+    if(list) {
+      res.json(list);
+    } else {
+      res.json("No list for User");
+    }
+    
+  } catch (error) {
+    console.log('get list of user error')
+    console.log(error)
+    res.status(500).json(error.message);
+  }
+  
 })
 
 async function isLoggedIn(req, res, next) {

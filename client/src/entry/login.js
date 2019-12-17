@@ -1,5 +1,6 @@
 import React, {useState, useContext} from 'react';
 import {UserContext} from './userContext.js';
+import {ListContext} from '../list/listContext.js';
 import {Link} from 'react-router-dom';
 import './entry.css';
 
@@ -10,14 +11,16 @@ function Login(props) {
   const [error, setError] = useState('');
   const [errorMessage, setErrorMessage] = useState('placeholder');
   const [user, setUser] = useContext(UserContext);
+  const [lists, setLists] = useContext(ListContext);
 
   const fetchList = async () => {
-    console.log('this be list stuff first');
+    // console.log('this be list stuff first');
     const res = await fetch('/lists/getall');
     const resData = await res.json();
-    console.log('this be list stuff second');
-    console.log(res);
-    console.log(resData);
+    console.log('this be list stuff from login');
+    console.log(resData[0]);
+    console.log(resData[0].items);
+    setLists(resData[0].items);
   }
 
   const onClick = async (event) => {
