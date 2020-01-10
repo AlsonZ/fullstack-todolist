@@ -23,6 +23,7 @@ function App() {
                     <Menu/>
                     <Route exact path="/login" component={Login}/>
                     <Route exact path="/" component={List}/>
+                    <Route exact path="/list/:name" render={(props) => <List {...props}/>}/>
                   </ListProvider>
                 </UserProvider>
                 <Route exact path="/register" component={Register}/>

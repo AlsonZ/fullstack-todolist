@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useRef} from 'react';
 import {Link} from 'react-router-dom';
 import {ListContext} from '../list/listContext'
 import {NotificationContext} from '../notification/notificationContext.js';
@@ -7,6 +7,7 @@ import './menu.css';
 function Menu() {
 
   const [navOpen, setNavOpen] = useState("");
+  const inputElement = useRef(null);
   const [menuItems, setMenuItems] = useState("");
   const [lists, setLists] = useContext(ListContext);
   const [notif, setNotif] = useContext(NotificationContext);
@@ -21,15 +22,21 @@ function Menu() {
     }
   }
   const createNewList = async (event) => {
+    // need to prevent empty list with space
     if(event.key === "Enter") {
       //make new list by adding to context
       // do not add it here because it may be a duplicate name
       const name = event.target.value
-      const listObj = { [name]: [] };
+      const listObj = { 
+        'name' : name,
+        'array' : [] 
+      };
       
       // send newList to database
       let url = "/lists/addNewList";
-      let data = {listObj: listObj};
+      let data = {
+        listObj: listObj
+      };
       const res = await fetch(url, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -46,6 +53,7 @@ function Menu() {
       }
       console.log(resData);
       // console.log(event.target.value);
+      inputElement.current.value = '';
       // event.target.value = '';
     }
   }
@@ -61,9 +69,16 @@ function Menu() {
         {/* have array.map on list of lists, 
         then use array[0] as name, past that is the list elements
         need to also make the menu not exceed a certain width and add scrollbar if so*/}
-        {lists.map((list, i) => <Link key = {i} to='/' className="links"><li className="list-element">{Object.keys(list)}</li></Link>)}
+        {
+          lists.map((list, i) => 
+            <Link key = {i} to={{pathname: '/list/' + list.name, name: list.name, index: i}} className="links">
+              <li className="list-element">
+                {list.name}
+              </li>
+            </Link>)
+        }
         <li className="input-list-element">
-          <input type="text" onKeyPress={createNewList} className="add-new-list-input" placeholder="New List Name"/>
+          <input type="text" ref={inputElement} onKeyPress={createNewList} className="add-new-list-input" placeholder="New List Name"/>
         </li>
       </ul>
     </div>

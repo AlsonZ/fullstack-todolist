@@ -9,10 +9,29 @@ function ListElement(props) {
   const [editing, setEditing] = useState(false);
   const [strikethrough, setStrikethrough] = useState("");
 
-  const deleteElement = () => {
-    var array = [...props.elements]
-    array.splice(props.index, 1);
-    props.setElements(array);
+  const deleteElement = async () => {
+    let url = '/lists/modifyList/delete';
+    let data = {
+      name: props.listName,
+      action: 'delete',
+      _id: props._id,
+      item: props.text,
+    };
+    const res = await fetch(url, {
+      method: 'DELETE',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    });
+    const resData = await res.json();
+    console.log('this be resData from delete');
+    console.log(resData);
+    if(resData === 'Success') {
+      console.log('delete worked');
+      var array = [...props.elements]
+      array.splice(props.index, 1);
+      props.setElements(array);
+    }
+    
   }
   const switchAction = () => {
     if(editing) {
@@ -21,9 +40,27 @@ function ListElement(props) {
       setEditing(true);
     }
   }
-  const finishEdit = (event) => {
+  const finishEdit = async (event) => {
     if(event.key === "Enter") {
       setEditing(false);
+      let url = '/lists/modifyList/modify';
+      let data = {
+        name: props.listName,
+        action: 'modify',
+        _id: props._id,
+        item: props.text,
+      };
+      const res = await fetch(url, {
+        method: 'PATCH',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      });
+      const resData = await res.json();
+      console.log('this be resData from edit');
+      console.log(resData);
+      if(resData === 'Success') {
+        console.log('edit worked');
+      }
     }
   }
   const addChanges = (event) => {

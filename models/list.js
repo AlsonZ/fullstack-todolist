@@ -5,9 +5,17 @@ const listSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  items: {
-    type: Array,
-  },
+  items: [{
+      name: {
+        type: String,
+        required: true
+      },
+      array: [{
+        text: {
+          type: String
+        }
+      }]
+    }],
   creationDate: {
     type: Date,
     default: Date.now

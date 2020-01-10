@@ -15,12 +15,18 @@ function Login(props) {
 
   const fetchList = async () => {
     // console.log('this be list stuff first');
-    const res = await fetch('/lists/getall');
+    const res = await fetch('/lists/getlists');
     const resData = await res.json();
-    console.log('this be list stuff from login');
-    console.log(resData[0]);
-    console.log(resData[0].items);
-    setLists(resData[0].items);
+    if(resData == "No list for User") {
+      console.log(resData);
+    } else {
+      console.log('this be list stuff from login');
+      console.log(resData);
+      setLists(resData);
+      // console.log(resData[0]);
+      // console.log(resData[0].items);
+      // setLists(resData[0].items);
+    }
   }
 
   const onClick = async (event) => {
@@ -51,6 +57,9 @@ function Login(props) {
         // console.log(resData);
         // console.log(user);
         fetchList();
+        // push to welcome screen instead of that
+        // open up the menu too to show where to make a new list
+
         props.history.push('/');
       } else {
         //2. error msg 
