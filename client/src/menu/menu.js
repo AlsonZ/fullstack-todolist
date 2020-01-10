@@ -1,4 +1,4 @@
-import React, {useState, useContext, useRef} from 'react';
+import React, {useState, useContext, useRef, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {ListContext} from '../list/listContext'
 import {NotificationContext} from '../notification/notificationContext.js';
@@ -8,9 +8,23 @@ function Menu() {
 
   const [navOpen, setNavOpen] = useState("");
   const inputElement = useRef(null);
+  const menuElement = useRef(null);
   const [menuItems, setMenuItems] = useState("");
   const [lists, setLists] = useContext(ListContext);
   const [notif, setNotif] = useContext(NotificationContext);
+
+  const handleClick = (event) => {
+    if(menuElement.current && !menuElement.current.contains(event.target) && navOpen !== "") {     
+        menuClick();
+    }
+  }
+
+  useEffect(() => {
+   document.addEventListener("mousedown", handleClick);
+   return(() => {
+     document.removeEventListener("mousedown", handleClick)
+   });
+  },[navOpen])
 
   const menuClick = () => {
     if(navOpen == "") {
@@ -59,19 +73,19 @@ function Menu() {
   }
 
   return (
-    <div className={"nav" + " " + navOpen}>
+    <div ref={menuElement} className={"nav" + " " + navOpen}>
       <div onClick={menuClick} className="hamburger-box">
         <div className="hamburger"/>
       </div>
       <ul className="menu-list">
-        <Link to='/login' className="links"><li className="list-element">Login</li></Link>
-        <Link to='/' className="links"><li className="list-element">List 1</li></Link>
+        <Link onClick={menuClick} to='/login' className="links"><li className="list-element">Login</li></Link>
+        <Link onClick={menuClick} to='/' className="links"><li className="list-element">List 1</li></Link>
         {/* have array.map on list of lists, 
         then use array[0] as name, past that is the list elements
         need to also make the menu not exceed a certain width and add scrollbar if so*/}
         {
           lists.map((list, i) => 
-            <Link key = {i} to={{pathname: '/list/' + list.name, name: list.name, index: i}} className="links">
+            <Link onClick={menuClick} key = {i} to={{pathname: '/list/' + list.name, name: list.name, index: i}} className="links">
               <li className="list-element">
                 {list.name}
               </li>

@@ -3,6 +3,7 @@
   max-width: 24rem; /* for web so the box isnt so big */
   padding: 1rem 3rem 5rem 3rem;
   background: white;
+  box-sizing: border-box;
   --primary-color: #422924;
   --success-color: #B3C0A4;
 }
