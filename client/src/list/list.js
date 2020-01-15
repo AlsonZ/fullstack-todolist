@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import ListElement from './listelement';
 import './list.css';
 import './addIcon.css';
-import {UserContext} from '../entry/userContext.js';
-import {ListContext} from '../list/listContext'
 
 function List(props) {
 
@@ -15,7 +13,6 @@ function List(props) {
   const inputElement = useRef(null);
  
   useEffect(() => {
-    console.log(props.location.name);
     if(props.location.name) {
       checkSavedLists();
       setListName(props.location.name);
@@ -25,14 +22,10 @@ function List(props) {
   const fetchList = async () => {
     const res = await fetch('/lists/getList/'+props.location.index);
     const resData = await res.json();
-    console.log('fetchlist has run');
-    console.log(resData);
     return(resData.array);
   }
   const checkSavedLists = async () => {
     const arrayList = await fetchList();
-    console.log('arraylist check')
-    console.log(arrayList)
     if(arrayList) {
       setElements([
         ...arrayList,
@@ -58,9 +51,6 @@ function List(props) {
   }
 
   const saveNewElement = async (item) => {
-    console.log('this is elements from list.js');
-    console.log(elements);
-    console.log(item);
     let url = '/lists/modifyList/create';
     let data = {
       name: listName,
@@ -74,10 +64,7 @@ function List(props) {
       body: JSON.stringify(data)
     });
     const resData = await res.json();
-    console.log('this be resDta from list');
-    console.log(resData);
     if(resData === 'Success') {
-      console.log('yes');
       // setElements([...elements, {text:item}]);
       // getList again to get id of new element
       checkSavedLists();
@@ -87,17 +74,14 @@ function List(props) {
   const addElement = async (event) => {
     if(event.key === "Enter") {
       await saveNewElement(event.target.value);
-      console.log('test inputelement reference');
       inputElement.current.value = '';
     }
   }
 
-  
-
   return (
     <div className="container">
       <h1 className="title">
-        {listName}
+        <p className="title-text">{listName}</p>
         <span onClick={openBox} className="iconToggle" > 
           <span className={"addIcon" + " " + minusIcon}/>
         </span>

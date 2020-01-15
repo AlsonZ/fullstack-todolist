@@ -2,10 +2,22 @@ const express = require('express')
 const router = express.Router();
 const User = require('../models/user')
 
-// session?
-
-// Get one/login
+router.get('/checkCookies', async (req, res) => {
+  const userID = req.session.userID;
+  const sessionID = req.sessionID;
+  console.log('checked Cookies: '+ userID);
+  if(req.session.userID) {
+    res.json(req.session.userID);
+  }
+})
+router.get('/logout', async (req, res) => {
+  req.session.destroy();
+  res.json('logout success');
+})
 router.post('/login', async (req, res) => {
+  if(req.session.userID) {
+    console.log('actualy there is a user: '+req.session.userID);
+  }
   let user;
   try {
     user = await User.find({email: req.body.email, password: req.body.password});

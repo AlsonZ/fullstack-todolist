@@ -86,3 +86,12 @@
 .error-visible {
   opacity: 1;
 }
+
+.normal-text {
+  color: var(--primary-color);
+  font-size: large;
+}
+
+.logout {
+  margin-top: 2rem;
+}

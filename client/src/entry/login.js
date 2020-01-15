@@ -13,26 +13,18 @@ function Login(props) {
   const [user, setUser] = useContext(UserContext);
   const [lists, setLists] = useContext(ListContext);
 
-  const fetchList = async () => {
-    // console.log('this be list stuff first');
-    const res = await fetch('/lists/getlists');
-    const resData = await res.json();
-    if(resData == "No list for User") {
-      console.log(resData);
-    } else {
-      console.log('this be list stuff from login');
-      console.log(resData);
-      setLists(resData);
-      // console.log(resData[0]);
-      // console.log(resData[0].items);
-      // setLists(resData[0].items);
-    }
-  }
+  
 
   const onClick = async (event) => {
     event.preventDefault();
     if(email == "" || password == "") {
       setErrorMessage('Please fill out all fields');
+      setError("error-visible");
+    } else if(!email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+      setErrorMessage('Email is invalid');
+      setError("error-visible");
+    } else if(password.length <= 5) {
+      setErrorMessage('Password must be longer than 6 characters');
       setError("error-visible");
     } else {
       let url = '/users/login';
@@ -56,11 +48,10 @@ function Login(props) {
         setUser(resData);
         // console.log(resData);
         // console.log(user);
-        fetchList();
+        // fetchList();
         // push to welcome screen instead of that
         // open up the menu too to show where to make a new list
-
-        props.history.push('/');
+        props.history.push('/welcome');
       } else {
         //2. error msg 
         setErrorMessage('The email or password is incorrect');

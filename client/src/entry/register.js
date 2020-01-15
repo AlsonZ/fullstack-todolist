@@ -14,6 +14,12 @@ function Register(props) {
     if(email == "" || password == "") {
       setErrorMessage('Please fill out all fields');
       setError("error-visible");
+    } else if(!email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+      setErrorMessage('Email is invalid');
+      setError("error-visible");
+    } else if(password.length <= 5) {
+      setErrorMessage('Password must be longer than 6 characters');
+      setError("error-visible");
     } else {
       let url = '/users/register';
       let data = {
@@ -33,7 +39,7 @@ function Register(props) {
         //1. register properly -> clear fields -> send to login
         setEmail('');
         setPassword('');
-        props.history.push('/login');
+        props.history.push('/');
       } else {
         //2. error msg 
         setErrorMessage('This Email has already been registered');
@@ -49,7 +55,7 @@ function Register(props) {
       <input type="email" placeholder="Email" className="input" onChange={event => setEmail(event.target.value)}></input>
       <input type="password" placeholder="Password" className="input" onChange={event => setPassword(event.target.value)}></input>
       <input type="submit" onClick={onClick} className="submit" value="REGISTER"></input>
-      <Link to='/login' className="entry-link">Already have an account? Sign in</Link>
+      <Link to='/' className="entry-link">Already have an account? Sign in</Link>
     </form>
   );
 }

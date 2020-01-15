@@ -2,6 +2,7 @@ import React from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import List from './list/list.js';
 import Menu from './menu/menu.js';
+import Welcome from './entry/welcome.js';
 import Login from './entry/login.js';
 import Notification from './notification/notification.js';
 import Register from './entry/register.js';
@@ -21,12 +22,13 @@ function App() {
                 <UserProvider>
                   <ListProvider>
                     <Menu/>
-                    <Route exact path="/login" component={Login}/>
-                    <Route exact path="/" component={List}/>
+                    <Route exact path="/" component={Login}/>
+                    <Route exact path="/register" component={Register}/>
+                    <Route exact path="/welcome" component={Welcome}/>
                     <Route exact path="/list/:name" render={(props) => <List {...props}/>}/>
                   </ListProvider>
                 </UserProvider>
-                <Route exact path="/register" component={Register}/>
+                
                 <Notification/>
               </NotificationProvider>
             </Router>
