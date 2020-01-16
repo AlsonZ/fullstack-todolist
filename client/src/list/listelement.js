@@ -23,10 +23,10 @@ function ListElement(props) {
       body: JSON.stringify(data)
     });
     const resData = await res.json();
-    console.log('this be resData from delete');
-    console.log(resData);
+    // console.log('this be resData from delete');
+    // console.log(resData);
     if(resData === 'Success') {
-      console.log('delete worked');
+      // console.log('delete worked');
       var array = [...props.elements]
       array.splice(props.index, 1);
       props.setElements(array);
@@ -56,10 +56,10 @@ function ListElement(props) {
         body: JSON.stringify(data)
       });
       const resData = await res.json();
-      console.log('this be resData from edit');
-      console.log(resData);
+      // console.log('this be resData from edit');
+      // console.log(resData);
       if(resData === 'Success') {
-        console.log('edit worked');
+        // console.log('edit worked');
       }
     }
   }
@@ -80,7 +80,7 @@ function ListElement(props) {
   return (
     <div className="listElement">
       <span onClick={deleteElement} className="deleteElement"><TrashCanIcon className="icon"/></span>
-      {!editing && <span onClick={changeCSS} className={"textElement" + " " +strikethrough}>{props.text}</span>}
+      {!editing && <span onClick={changeCSS} className={`textElement ${strikethrough}`}>{props.text}</span>}
       {editing && <input type="text" autoFocus defaultValue={props.text} onChange={addChanges} onKeyPress={finishEdit} className="editElementInput"/>}
       {!editing && <span onClick={switchAction} className="editElement"><EditIcon className="icon"/></span>}
       {editing && <span onClick={switchAction} className="editElement"><CompleteIcon className="icon"/></span>}

@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ListElement from './listelement';
 import './list.css';
 import './addIcon.css';
+import {ReactComponent as TrashCanIcon} from './trashCan.svg';
+
 
 function List(props) {
 
@@ -13,10 +15,18 @@ function List(props) {
   const inputElement = useRef(null);
  
   useEffect(() => {
+    if(props.location.name === undefined || props.location.index === undefined) {
+      props.history.push('/welcome');
+    }
+    // eslint-disable-next-line
+  },[])
+
+  useEffect(() => {
     if(props.location.name) {
       checkSavedLists();
       setListName(props.location.name);
     }
+    // eslint-disable-next-line
   }, [props.location.name]);
 
   const fetchList = async () => {
@@ -38,7 +48,7 @@ function List(props) {
   }
   
   const openBox = () => {
-    if(action == "plus") {
+    if(action === "plus") {
       setAction("minus");
       setBox("openBox");
       setMinusIcon("minusIcon");
@@ -48,6 +58,34 @@ function List(props) {
       setMinusIcon("");
       inputElement.current.focus();
     }
+  }
+
+  const deleteList = async () => {
+    // send to backend
+    let url = '/lists/deleteList';
+    let data = {
+      name: props.location.name,
+      action: 'delete',
+      _id: props.location._id,
+    }
+    const res = await fetch(url, {
+      method: 'DELETE',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    });
+    const resData = await res.json();
+    console.log('this is delete list');
+    console.log(resData);
+    // recieve data from back
+    // if success
+    if(resData === "Success") {
+      // checkSavedLists();]
+      props.location.setUpdateList(true);
+      props.history.push('/welcome');
+    }
+    // checkSavedLists() again
+    // or change backend to give new list and then set to new list here
+    // send to welcome page
   }
 
   const saveNewElement = async (item) => {
@@ -81,12 +119,15 @@ function List(props) {
   return (
     <div className="container">
       <h1 className="title">
+          <span onClick={deleteList} className="delete-list">
+            <TrashCanIcon className="icon"/>
+          </span>
         <p className="title-text">{listName}</p>
         <span onClick={openBox} className="iconToggle" > 
-          <span className={"addIcon" + " " + minusIcon}/>
+          <span className={`addIcon ${minusIcon}`}/>
         </span>
       </h1>
-      <input type="text" autoFocus ref={inputElement} placeholder="Add a new Todo" className={"addElementInput" + " " + box}onKeyPress={addElement}/>
+      <input type="text" autoFocus ref={inputElement} placeholder="Add a new Todo" className={`addElementInput ${box}`}onKeyPress={addElement}/>
       {elements.map((object, index) => {
         const listElementProps = {
           key: index,

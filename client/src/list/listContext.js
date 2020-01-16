@@ -1,10 +1,6 @@
-import React,{useState, createContext, useContext, useEffect} from 'react';
+import React,{useState, createContext} from 'react';
 
 export const ListContext = createContext(
-//     {
-//     user: "",
-//     setUser: () => {}
-// }
 );
 
 export const ListProvider = (props) => {

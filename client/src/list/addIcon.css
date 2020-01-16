@@ -6,7 +6,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 1rem;
+  margin-left: auto;
+  padding: 0 0.5rem;
 }
 
 .addIcon {

@@ -11,7 +11,7 @@ function Register(props) {
 
   const onClick = async (event) => {
     event.preventDefault();
-    if(email == "" || password == "") {
+    if(email === "" || password === "") {
       setErrorMessage('Please fill out all fields');
       setError("error-visible");
     } else if(!email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
@@ -26,17 +26,13 @@ function Register(props) {
         email: email,
         password: password
       }
-      //send data to backend
       const res = await fetch(url, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(data)
       });
-      //get data back transform from json
       const resData = await res.json();
-      // console.log(resData);    
-      if(resData == "registered") {
-        //1. register properly -> clear fields -> send to login
+      if(resData === "registered") {
         setEmail('');
         setPassword('');
         props.history.push('/');
@@ -51,9 +47,9 @@ function Register(props) {
   return (
     <form className="entry-container">
       <h1 className="entry-title">Register</h1>
-      <p className={"error-text" + " " + error}>{errorMessage}</p>
-      <input type="email" placeholder="Email" className="input" onChange={event => setEmail(event.target.value)}></input>
-      <input type="password" placeholder="Password" className="input" onChange={event => setPassword(event.target.value)}></input>
+      <p className={`error-text ${error}`}>{errorMessage}</p>
+      <input type="email" placeholder="Email" className="input" onChange={event => setEmail(event.target.value)} autoComplete="off"></input>
+      <input type="password" placeholder="Password" className="input" onChange={event => setPassword(event.target.value)} autoComplete="off"></input>
       <input type="submit" onClick={onClick} className="submit" value="REGISTER"></input>
       <Link to='/' className="entry-link">Already have an account? Sign in</Link>
     </form>

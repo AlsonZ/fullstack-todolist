@@ -83,6 +83,30 @@ router.delete('/modifyList/delete', isLoggedIn, async (req,res) => {
   }
 })
 
+router.delete('/deleteList', isLoggedIn, async (req,res) => {
+  let action = req.body.action;
+  let listName = req.body.name;
+  let _id = req.body._id;
+  try {
+    let [existingList] = await List.find({email: req.session.userID});
+    if(action === 'delete' && (existingList !== undefined)) {
+      console.log('this is deleteList');
+      console.log(listName+" "+_id);
+      await List.findOneAndUpdate(
+        {email: req.session.userID, items : { $elemMatch: { name: listName } } },
+        { $pull: {
+          'items': { _id: _id } 
+        }}
+      );
+      res.json('Success');
+      console.log(`Deleted ${listName} owned by ${req.session.userID}`);
+    }
+  } catch (error) {
+    console.log('Modify list /delete error');
+    console.log(error);
+  }
+})
+
 router.post('/addNewList', isLoggedIn, async (req, res) => {
   //make new list document for user/ add it to existing if exists
   let listObj = req.body.listObj;
@@ -104,8 +128,8 @@ router.post('/addNewList', isLoggedIn, async (req, res) => {
             console.log(error);
           }
         )
-        console.log('check if pushed into list');
-        console.log(updatedList);
+        // console.log('check if pushed into list');
+        // console.log(updatedList);
         res.status(201).json('New List Document made');
       }
     } else {

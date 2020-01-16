@@ -2,12 +2,11 @@ import React, {useState, useEffect, useContext } from 'react';
 import {NotificationContext} from './notificationContext.js';
 import './notification.css';
 
-function Notification(props) {
+function Notification() {
 
   const [active, setActive] = useState('');
   const [notif, setNotif] = useContext(NotificationContext);
   useEffect(() => {
-    console.log('this is useEffect');
     if(notif !== 'none') {
       setActive('notify-user');
       setTimeout(() => {
@@ -17,10 +16,11 @@ function Notification(props) {
         }, 500);
       }, 2000);
     }
+    // eslint-disable-next-line
   },[notif]);
 
   return (
-    <div className={"notification" + " " + active}>{notif}</div>
+    <div className={`notification ${active}`}>{notif}</div>
   )
 }
 

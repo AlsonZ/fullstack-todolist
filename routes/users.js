@@ -8,6 +8,8 @@ router.get('/checkCookies', async (req, res) => {
   console.log('checked Cookies: '+ userID);
   if(req.session.userID) {
     res.json(req.session.userID);
+  } else {
+    res.json('Unsuccessful');
   }
 })
 router.get('/logout', async (req, res) => {

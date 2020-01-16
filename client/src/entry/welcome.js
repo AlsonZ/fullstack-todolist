@@ -12,7 +12,6 @@ function Welcome(props) {
       setUser("");
       props.history.push('/');
     }
-    console.log('logout now');
   }
 
 
@@ -20,7 +19,7 @@ function Welcome(props) {
     <div className="entry-container">
       <h1 className="entry-title"> Welcome </h1>
       <p className="normal-text">To get started click the menu at the top left</p>
-      <button onClick={onLogout} className="submit logout">Logout</button>
+      {user && <button onClick={onLogout} className="submit logout">Logout</button>}
     </div>
   );
 }
