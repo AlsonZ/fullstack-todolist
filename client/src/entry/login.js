@@ -35,7 +35,10 @@ function Login(props) {
       });
       const resData = await res.json();
       // console.log(resData);    
-      if(resData !== "failure") {
+      console.log('hello this is login');
+      console.log(resData);
+      console.log(res.status);
+      if(res.status === 200) {
         setEmail('');
         setPassword('');
         setUser(resData);
