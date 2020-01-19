@@ -37,7 +37,6 @@ function Register(props) {
         setPassword('');
         props.history.push('/');
       } else {
-        //2. error msg 
         setErrorMessage('This Email has already been registered');
         setError("error-visible");
       }

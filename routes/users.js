@@ -3,9 +3,9 @@ const router = express.Router();
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 
+// determine if user needs to login again
 router.get('/checkCookies', async (req, res) => {
   const userID = req.session.userID;
-  const sessionID = req.sessionID;
   console.log('checked Cookies: '+ userID);
   if(req.session.userID) {
     res.json(req.session.userID);
@@ -27,7 +27,7 @@ router.post('/login', async (req, res) => {
   try {
     [user] = await User.find({email: req.body.email.toLowerCase()});
     if(user) {
-      if (bcrypt.compareSync(req.body.password, user.password)) {
+      if(bcrypt.compareSync(req.body.password, user.password)) {
         req.session.userID = req.body.email; 
         return res.status(200).json(req.session.userID);
       } else {
@@ -58,7 +58,7 @@ router.post('/register', checkUser, async (req, res) => {
   }
 })
 
-// get user with email
+// determine if email already exists
 async function checkUser(req, res, next) {
   let user;
   try {
@@ -71,7 +71,7 @@ async function checkUser(req, res, next) {
   } catch (error) {
     return res.status(500).json({message: error.message})
   }
-  res.user = user; // duno if need the user
+  res.user = user;
   next();
 }
 

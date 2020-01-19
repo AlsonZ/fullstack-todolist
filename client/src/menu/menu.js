@@ -75,7 +75,6 @@ function Menu() {
     }
   }
   const createNewList = async (event) => {
-    // need to prevent empty list with space
     const name = event.target.value
     if(event.key === "Enter") {
       if(!name.match(/([A-Za-z0-9])\w*/g)) {

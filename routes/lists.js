@@ -6,7 +6,6 @@ const List = require('../models/list')
 router.put('/modifyList/create', isLoggedIn, async (req,res) => {
   let action = req.body.action;
   let listName = req.body.name;
-  // create element has no _id
   let item = req.body.item;
   try {
     let [existingList] = await List.find({email: req.session.userID});
@@ -108,13 +107,12 @@ router.delete('/deleteList', isLoggedIn, async (req,res) => {
 })
 
 router.post('/addNewList', isLoggedIn, async (req, res) => {
-  //make new list document for user/ add it to existing if exists
+  //make new list document for user/add it to existing if it already exists
   let listObj = req.body.listObj;
   try {
     let [existingList] = await List.find({email: req.session.userID});
     if(existingList !== undefined) {
-      // list document for user exists
-      // console.log('user exists');
+      // document exists
       let duplicateListName = await List.findOne({email: req.session.userID, items: { $elemMatch: listObj} })
       if(duplicateListName) {
         console.log('Duplicate list name')
@@ -128,8 +126,6 @@ router.post('/addNewList', isLoggedIn, async (req, res) => {
             console.log(error);
           }
         )
-        // console.log('check if pushed into list');
-        // console.log(updatedList);
         res.status(201).json('New List Document made');
       }
     } else {
@@ -148,13 +144,9 @@ router.post('/addNewList', isLoggedIn, async (req, res) => {
 })
 
 router.get('/getLists', isLoggedIn, async (req, res) => {
-  // return list data
   try {
     const list = await List.find({email: req.session.userID});
-    // console.log('this is getlists');
-    // console.log(list);
     if(list.length !== 0) {
-      // const listNames = list[0].items;
       const listNames = list[0].items.map(({_id, name, array, ...extras}) => { return({_id: _id, name: name}) });
       res.json(listNames);
     } else {
@@ -185,12 +177,9 @@ async function isLoggedIn(req, res, next) {
   let user;
   try {
     user = await User.find({email: req.session.userID});
-    // console.log('this is loggedin');
-    // console.log(user[0]);
     if (user[0] !== undefined) {
       next();
     } else {
-      // this happens when people dont login
       return res.status(401).json('Email does not exist');
     }
   } catch (error) {

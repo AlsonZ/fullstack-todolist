@@ -37,12 +37,7 @@ function List(props) {
   const checkSavedLists = async () => {
     const arrayList = await fetchList();
     if(arrayList) {
-      setElements([
-        ...arrayList,
-        // {text:"testing text"}, 
-        // {text:"text that is sorta long enough so it just fits"},
-        // {text:"text that is super super long so that i can see how the span handles the super long sentences"},
-      ]);
+      setElements([...arrayList,]);
     }
     
   }
@@ -61,7 +56,6 @@ function List(props) {
   }
 
   const deleteList = async () => {
-    // send to backend
     let url = '/lists/deleteList';
     let data = {
       name: props.location.name,
@@ -76,16 +70,10 @@ function List(props) {
     const resData = await res.json();
     console.log('this is delete list');
     console.log(resData);
-    // recieve data from back
-    // if success
     if(resData === "Success") {
-      // checkSavedLists();]
       props.location.setUpdateList(true);
       props.history.push('/welcome');
     }
-    // checkSavedLists() again
-    // or change backend to give new list and then set to new list here
-    // send to welcome page
   }
 
   const saveNewElement = async (item) => {
@@ -93,7 +81,6 @@ function List(props) {
     let data = {
       name: listName,
       action: 'create',
-      // create has no _id
       item: item,
     };
     const res = await fetch(url, {
@@ -103,8 +90,6 @@ function List(props) {
     });
     const resData = await res.json();
     if(resData === 'Success') {
-      // setElements([...elements, {text:item}]);
-      // getList again to get id of new element
       checkSavedLists();
     }
   }

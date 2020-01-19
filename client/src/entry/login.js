@@ -34,17 +34,12 @@ function Login(props) {
         body: JSON.stringify(data)
       });
       const resData = await res.json();
-      // console.log(resData);    
-      console.log('hello this is login');
-      console.log(resData);
-      console.log(res.status);
       if(res.status === 200) {
         setEmail('');
         setPassword('');
         setUser(resData);
         props.history.push('/welcome');
       } else {
-        //2. error msg 
         setErrorMessage('The email or password is incorrect');
         setError("error-visible");
       }

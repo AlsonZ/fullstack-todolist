@@ -23,10 +23,7 @@ function ListElement(props) {
       body: JSON.stringify(data)
     });
     const resData = await res.json();
-    // console.log('this be resData from delete');
-    // console.log(resData);
     if(resData === 'Success') {
-      // console.log('delete worked');
       var array = [...props.elements]
       array.splice(props.index, 1);
       props.setElements(array);
@@ -56,10 +53,7 @@ function ListElement(props) {
         body: JSON.stringify(data)
       });
       const resData = await res.json();
-      // console.log('this be resData from edit');
-      // console.log(resData);
       if(resData === 'Success') {
-        // console.log('edit worked');
       }
     }
   }
