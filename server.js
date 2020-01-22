@@ -47,6 +47,6 @@ if(process.env.NODE_ENV === 'production') {
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log('Server Started'));
 
-// app.get('/', async (req, res) => {
-//   res.send("this is the ip " + req.ip);
-// })
+app.get('/getmyIP', async (req, res) => {
+  res.send("this is the ip " + req.ip);
+})
