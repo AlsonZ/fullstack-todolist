@@ -1,4 +1,4 @@
-if(process.env.NODE_ENV === 'development') {
+if(process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 const express = require('express')
@@ -23,10 +23,11 @@ app.use(session({
   secret: 'this_is_a_secret_hash',
   resave: false,
   saveUninitialized: false,
+  proxy: true,
   cookie: {
     httpOnly: true,
-    // secure: process.env.NODE_ENV === 'production',
-    secure: false,
+    secure: process.env.NODE_ENV === 'production',
+    // secure: false,
     maxAge: 1000 * 60 * 60 * 24 * 7 // = 7 days 
   }
 }));
