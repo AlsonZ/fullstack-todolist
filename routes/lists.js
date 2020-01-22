@@ -109,11 +109,12 @@ router.delete('/deleteList', isLoggedIn, async (req,res) => {
 router.post('/addNewList', isLoggedIn, async (req, res) => {
   //make new list document for user/add it to existing if it already exists
   let listObj = req.body.listObj;
+  let listName = req.body.listObj.name;
   try {
     let [existingList] = await List.find({email: req.session.userID});
     if(existingList !== undefined) {
       // document exists
-      let duplicateListName = await List.findOne({email: req.session.userID, items: { $elemMatch: listObj} })
+      let duplicateListName = await List.findOne({email: req.session.userID, items: { $elemMatch: { name:listName } } })
       if(duplicateListName) {
         console.log('Duplicate list name')
         res.status(409).json('Duplicate List Name');
