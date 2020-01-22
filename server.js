@@ -33,6 +33,10 @@ app.use(session({
 app.use('/users', userRouter);
 app.use('/lists', listRouter);
 
+app.get('/getmyIP', async (req, res) => {
+  res.send("this is the ip " + req.ip);
+})
+
 if(process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 
@@ -41,12 +45,6 @@ if(process.env.NODE_ENV === 'production') {
   })
 }
 
-// for 192.168.0.19:3001 and gives ip of who is connecting
-// app.listen(3001, '192.168.0.19', () => console.log('server started'));
-// for localhost:3001 
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log('Server Started'));
 
-app.get('/getmyIP', async (req, res) => {
-  res.send("this is the ip " + req.ip);
-})
