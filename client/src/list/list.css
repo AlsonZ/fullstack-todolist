@@ -1,6 +1,7 @@
 .container {
   width: 85%; /* for mobiles with width smaller than 360 */
-  max-width: 24rem; /* for web so the box isnt so big */
+	max-width: 24rem; /* for web so the box isnt so big */
+	min-width: 20rem;
 	background: white;
 	box-sizing: border-box;
 	--primary-color: #422924;/*2980b9   64504C  3F2B24*/

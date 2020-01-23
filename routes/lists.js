@@ -181,7 +181,7 @@ async function isLoggedIn(req, res, next) {
     if (user[0] !== undefined) {
       next();
     } else {
-      return res.status(401).json('Email does not exist '+user[0]+" this userID: "+req.session.userID);
+      return res.status(401).json('Email does not exist');
     }
   } catch (error) {
     console.log('error? ' + error.message);
